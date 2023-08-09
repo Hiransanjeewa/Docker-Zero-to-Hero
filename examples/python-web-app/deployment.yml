@@ -17,12 +17,13 @@ spec:
       containers:
       - name: python-app
         image: hiransanjeewa/getting-started 
-        env:
-         - name: DB-PORT
-           valueFrom:
-            configMapKeyRef:
-             name: configmap-test
-             key: db-port
+        volumeMounts:
+        - name: db-connection
+          mountPath: /opt
         ports:
         - containerPort: 8080
+      volumes:
+        - name: db-connection
+          configMap:
+             name: configmap-test
 
